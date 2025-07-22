@@ -3,7 +3,7 @@ FROM php:8.2-fpm
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
 # Copy composer.lock and composer.json
-COPY composer.lock composer.json /var/www/
+COPY backend/composer.lock backend/composer.json /var/www/
 
 # Set working directory
 WORKDIR /var/www
@@ -44,7 +44,7 @@ RUN pecl install redis && docker-php-ext-enable redis
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Copy existing application directory contents to the working directory
-COPY . /var/www
+COPY ./backend /var/www
 
 # Assign permissions of the working directory to the www-data user
 RUN chown -R www-data:www-data \
